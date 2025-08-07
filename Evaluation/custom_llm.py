@@ -1,5 +1,6 @@
 from langchain_openai import AzureChatOpenAI, ChatOpenAI
 from deepeval.models.base_model import DeepEvalBaseLLM
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 class AzureOpenAI(DeepEvalBaseLLM):
     def __init__(
@@ -50,12 +51,8 @@ class CustomGeminiModel():
         self.api_key = api_key
 
     def invoke(self) -> AzureOpenAI:
-        custom_model = ChatOpenAI(
+        custom_model = ChatGoogleGenerativeAI(
             model="gemini-2.5-flash",
-            temperature=1,
-            max_tokens=None,
-            timeout=None,
-            max_retries=2,
-            api_key=self.api_key
+            google_api_key=self.api_key
         )
         return AzureOpenAI(model=custom_model)
